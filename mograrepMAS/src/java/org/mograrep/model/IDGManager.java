@@ -59,12 +59,12 @@ public class IDGManager {
 	}
 
 	public InstanceDataGenerator getMostApplicableGenerator(final List<IRI> chain){
-		SimpleMapReduce<Pair<InstanceDataGenerator, Integer>, Triplet<InstanceDataGenerator, Double, Integer>, InstanceDataGenerator> smr = new SimpleMapReduce<Pair<InstanceDataGenerator,Integer>, Triplet<InstanceDataGenerator, Double, Integer>, InstanceDataGenerator>();
+		SimpleMapReduce<Pair<InstanceDataGenerator, Integer>, Triplet<InstanceDataGenerator, Double, Integer>, InstanceDataGenerator> smr = new SimpleMapReduce<>();
 		MapFunction<Pair<InstanceDataGenerator, Integer>, Triplet<InstanceDataGenerator, Double, Integer>> mapF = new MapFunction<Pair<InstanceDataGenerator,Integer>, Triplet<InstanceDataGenerator, Double, Integer>>() {
 
 			public Triplet<InstanceDataGenerator, Double, Integer> f(
 					Pair<InstanceDataGenerator, Integer> p) {
-				Triplet<InstanceDataGenerator, Double, Integer> rValue = new Triplet<InstanceDataGenerator, Double, Integer>(p.getValue0(), p.getValue0().matchType(chain), p.getValue1());
+				Triplet<InstanceDataGenerator, Double, Integer> rValue = new Triplet<>(p.getValue0(), p.getValue0().matchType(chain), p.getValue1());
 				return rValue;
 			}
 		};

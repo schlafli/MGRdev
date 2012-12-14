@@ -46,7 +46,7 @@ public class OWLVisitorTest implements OWLClassExpressionVisitor {
 	boolean charObjProp = false;
 	boolean hasQObjProp = false;
 
-	boolean print = true;
+	boolean print = false;
 
 
 	int tabs = 0;

@@ -21,5 +21,15 @@ public class DoubleContextDataValue extends ContextDataValue {
 		return ""+value;
 	}
 	
+	
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public double addValue(double value) {
+		this.value += value;
+		return this.value;
+	}
+	
 
 }

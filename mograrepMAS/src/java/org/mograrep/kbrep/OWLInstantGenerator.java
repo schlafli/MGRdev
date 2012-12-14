@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.mograrep.model.ContextData;
 import org.mograrep.model.ContextInformation;
+import org.mograrep.model.IDGGeneric;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -24,7 +25,22 @@ public class OWLInstantGenerator {
 		OWLVisitorTest ovt = new OWLVisitorTest();
 		e.accept(ovt);
 		
-		System.out.println(ovt.head.getFormattedView(0, "  "));
+		
+		ContextInformation head = ovt.head;
+		System.out.println(head.getFormattedView(0, "  "));
+		
+		//IDGGeneric.generateContext(head);
+		//System.out.println("After generation");
+		//System.out.println(head.getFormattedView(0, "  "));
+		
+		
+	}
+	
+	public static ContextInformation getContextFromClassExpression(OWLClassExpression e)
+	{
+		OWLVisitorTest ovt = new OWLVisitorTest();
+		e.accept(ovt);	
+		return ovt.head;
 	}
 	
 	

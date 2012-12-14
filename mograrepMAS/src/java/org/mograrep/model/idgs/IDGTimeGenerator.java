@@ -30,7 +30,7 @@ public class IDGTimeGenerator implements InstanceDataGenerator {
 	}
 
 	public double matchType(List<IRI> chain) {
-		
+	return 1;	
 	}
 
 	public List<ContextData> generateData(List<IRI> chain) {
