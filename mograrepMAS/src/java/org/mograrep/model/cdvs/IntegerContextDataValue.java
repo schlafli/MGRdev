@@ -3,6 +3,12 @@ package org.mograrep.model.cdvs;
 public class IntegerContextDataValue extends ContextDataValue {
 	int value;
 	
+	
+	public static IntegerContextDataValue fromDouble(double d)
+	{
+		return new IntegerContextDataValue((int)Math.round(d));
+	}
+	
 	public IntegerContextDataValue(int value)
 	{
 		this.value = value;
@@ -27,6 +33,16 @@ public class IntegerContextDataValue extends ContextDataValue {
 	public int addValue(int value) {
 		this.value += value;
 		return this.value;
+	}
+
+	@Override
+	public ContextDataValue deepCopy() {
+		return new IntegerContextDataValue(value);
+	}
+
+	@Override
+	public double asDouble() {
+		return value;
 	}
 
 }

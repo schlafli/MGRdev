@@ -8,6 +8,8 @@ import java.util.TreeSet;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
+import org.mograrep.model.cdvs.ContextDataValue;
+import org.mograrep.model.utils.ContextDataUtils;
 import org.semanticweb.owlapi.model.IRI;
 
 
@@ -21,6 +23,15 @@ public class ContextDeviation {
 	private ContextData aData;
 	private ContextData bData;
 	
+	
+	public double asDelta()
+	{
+		ContextDataValue aVal = IDGGeneric.generateAverageValues(aData);
+		ContextDataValue bVal = IDGGeneric.generateAverageValues(bData);
+		
+		
+		return ContextDataUtils.subtract(bVal, aVal).asDouble();
+	}
 	
 	private ContextDeviation(){
 
@@ -53,6 +64,18 @@ public class ContextDeviation {
 		return new Triplet<List<Pair<ContextInformation,ContextInformation>>, List<ContextInformation>, List<ContextInformation>>(result,  restA,  restB);
 	}
 
+	public static List<ContextDeviation> getDeviationsFromContextInformation(ContextInformation agreed, ContextInformation performed)
+	{
+		List<ContextInformation> agreedCI = new ArrayList<>(1);
+		List<ContextInformation> performedCI = new ArrayList<>(1);
+		
+		agreedCI.add(agreed);
+		performedCI.add(performed);
+		
+		return getMatchedDeviations(agreedCI, performedCI);
+		
+	}
+	
 	public static List<ContextDeviation> getDeviations(Action agreed, Action performed){
 
 		List<ContextInformation> agreedCI = agreed.getContextInformationList();

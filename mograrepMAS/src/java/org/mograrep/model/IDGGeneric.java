@@ -9,6 +9,19 @@ import org.mograrep.model.cdvs.IntegerContextDataValue;
 
 
 public class IDGGeneric {
+	
+	
+	public static ContextDataValue generateAverageValues(ContextData data)
+	{
+		if(data.getValue()!=null)
+		{
+			return data.getValue();
+		}else
+		{
+			return generateValue(data.getMin(), data.getMax());
+		}
+		
+	}
 
 	public static void generateContextValues(ContextInformation ci)
 	{
@@ -68,6 +81,7 @@ public class IDGGeneric {
 			break;
 
 		default:
+			System.out.println("Error: ContextDataType \""+type+"\" not implemented in IDGGeneric");
 			cdv = null;
 			break;
 		}

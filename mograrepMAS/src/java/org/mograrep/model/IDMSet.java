@@ -12,7 +12,7 @@ public abstract class IDMSet implements InstanceDataModifier{
 	List<InstanceDataModifier> ciModifiers; //current level modifiers
 
 	String name;
-	
+
 	public IDMSet(String name)
 	{
 		this.name = name;
@@ -70,7 +70,7 @@ public abstract class IDMSet implements InstanceDataModifier{
 	public String getModifierName() {
 		return name;
 	}
-	
+
 	public static boolean applyIDMSetToContext(IDMSet idms, ContextInformation ci)
 	{
 		boolean applied = false;
@@ -80,11 +80,12 @@ public abstract class IDMSet implements InstanceDataModifier{
 			applied = true;
 		}else
 		{	
-			
-			for(ContextInformation ciRec: ci.getContextInformationList() )
-			{
-				applied |= applyIDMSetToContext(idms, ciRec);
-				
+			if(ci.hasContext()){
+				for(ContextInformation ciRec: ci.getContextInformationList() )
+				{
+					applied |= applyIDMSetToContext(idms, ciRec);
+
+				}
 			}
 		}
 		return applied;

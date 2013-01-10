@@ -13,6 +13,8 @@ public class ContextData {
 
 	private IRI dataProperty;
 	
+	private int dataValueType=0;
+	
 	private ContextDataValue min = null;
 	private ContextDataValue max = null;
 	
@@ -25,6 +27,12 @@ public class ContextData {
 	public IRI getDataProperty() {
 		return dataProperty;
 	}
+	
+	public int getDataValueType()
+	{
+		return dataValueType;
+	}
+	
 	public void setDataProperty(IRI dataProperty) {
 		this.dataProperty = dataProperty;
 	}
@@ -32,21 +40,50 @@ public class ContextData {
 		return min;
 	}
 	public void setMin(ContextDataValue min) {
+		if(dataValueType==0)
+		{
+			dataValueType = min.getDataValueID();
+		}
 		this.min = min;
 	}
 	public ContextDataValue getMax() {
 		return max;
 	}
 	public void setMax(ContextDataValue max) {
+		if(dataValueType==0)
+		{
+			dataValueType = max.getDataValueID();
+		}
 		this.max = max;
 	}
 	public ContextDataValue getValue() {
 		return value;
 	}
 	public void setValue(ContextDataValue value) {
+		if(dataValueType==0)
+		{
+			dataValueType = value.getDataValueID();
+		}
 		this.value = value;
 	}
 	
+	public ContextData deepCopy()
+	{
+		ContextData cd = new ContextData(dataProperty);
+		if(max!=null)
+		{
+			cd.max = max.deepCopy();
+		}
+		if(min!=null)
+		{
+			cd.min = min.deepCopy();
+		}
+		if(value!=null)
+		{
+			cd.value = value.deepCopy();
+		}
+		return cd;
+	}
 	
 	public String toString(){
 		String ret = dataProperty.getFragment() + " (";
@@ -58,4 +95,8 @@ public class ContextData {
 		return ret+")";
 	}
 	
+	public boolean sameType(ContextData cd)
+	{
+		return getDataProperty().toString().equals(cd.getDataProperty().toString());
+	}
 }

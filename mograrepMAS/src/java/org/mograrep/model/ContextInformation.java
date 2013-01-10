@@ -22,10 +22,10 @@ public class ContextInformation {
 	private IRI type;
 
 	protected boolean isAction;
-	
+
 	protected List<ContextInformation> hasContext;
 
-	
+
 	//ContextInformation hasMinimum;
 
 	protected List<ContextInformation> parents;
@@ -34,23 +34,106 @@ public class ContextInformation {
 	protected TreeSet<ContextData> hasValues;
 
 
+	public List<ContextInformation> flatten()
+	{
+		return flatten(false);
+	}
+
+	public List<ContextInformation> flatten(boolean withCopy)
+	{
+		ArrayList<ContextInformation> ret = new ArrayList<>();
+		if(this.hasValues())
+		{
+			if(withCopy)
+			{
+				ret.add(copyValues());
+			}else
+			{
+				ret.add(this);
+			}
+		}
+		if(hasContext())
+		{
+			for(ContextInformation child: hasContext)
+			{
+				ret.addAll(child.flatten());
+			}
+		}
+		return ret;
+	}
+
+	public ContextInformation copyValues()
+	{
+		ContextInformation ret = new ContextInformation(name, type);
+		ret.isAction = isAction();
+		ret.addParents(parents);
+
+		if(this.hasValues())
+		{
+			ret.checkHasValues();
+			for(ContextData cdv:hasValues)
+			{
+				ret.addValue(cdv.deepCopy());
+			}
+
+		}
+		return ret;
+	}
+
+	public ContextInformation copy()
+	{
+		return deepCopy(new ArrayList<ContextInformation>());
+
+	}
+
+
+
+	private ContextInformation deepCopy(ArrayList<ContextInformation> parentCI){
+		ContextInformation ret = new ContextInformation(name, type);
+		ret.isAction = isAction();
+
+		ret.addParents(parentCI);
+		ArrayList<ContextInformation> p2 = new ArrayList<>(parentCI);
+		p2.add(ret);
+
+		if(this.hasContext())
+		{
+			ret.hasContext = new ArrayList<>(hasContext.size());
+			for(ContextInformation child: hasContext)
+			{
+				ret.hasContext.add(child.deepCopy(p2));
+			}
+		}
+		if(this.hasValues())
+		{
+			ret.checkHasValues();
+			for(ContextData cdv:hasValues)
+			{
+				ret.addValue(cdv.deepCopy());
+			}
+
+		}
+		return ret;
+	}
+
+
 	public ContextInformation(IRI name, IRI type){
 		this.name = name;
 		this.type = type;
 	}
 
 	public boolean sameType(ContextInformation comp){
-		return name.equals(comp.name) && type.equals(comp.type);
+		return /*name.equals(comp.name) &&*/ type.equals(comp.type);
 	}
 
 	public boolean isAction(){
 		return isAction;
 	}
-	
+
 	public void setAction(boolean isAction){
 		this.isAction = isAction;
 	}
-	
+
 	private void checkHasValues(){
 		if(hasValues == null){
 			hasValues = new TreeSet<ContextData>(new Comparator<ContextData>() {
@@ -131,7 +214,7 @@ public class ContextInformation {
 		}
 		return ret;
 	}
-	
+
 	public List<IRI> getInverseTypeChain(){
 		ArrayList<IRI> tc = new ArrayList<IRI>();
 		tc.add(getType());
@@ -140,7 +223,7 @@ public class ContextInformation {
 		}
 		return tc;
 	}
-	
+
 	public List<IRI> getTypeChain(){
 		ArrayList<IRI> tc = new ArrayList<IRI>();
 		for(ContextInformation parent: parents){
@@ -169,4 +252,18 @@ public class ContextInformation {
 		return ret;
 	}
 
+	public String toString()
+	{
+		String ret="";
+		if(parents!=null)
+		{
+			for(ContextInformation ci: parents)
+			{
+				ret+=ci.name.toString()+"("+ci.type.toString()+")->";
+			}
+		}
+		ret+=name+"("+type+") props:" + ((hasValues!=null)?hasValues.size():0);
+
+		return ret;
+	}
 }

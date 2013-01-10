@@ -5,6 +5,12 @@ public class DoubleContextDataValue extends ContextDataValue {
 	
 	private Double value;
 	
+	
+	public static DoubleContextDataValue fromDouble(double d)
+	{
+		return new DoubleContextDataValue(d);
+	}
+	
 	public DoubleContextDataValue(double value){
 		this.value = value;
 		this.dataValueID = ContextDataValue.DOUBLE;
@@ -29,6 +35,18 @@ public class DoubleContextDataValue extends ContextDataValue {
 	public double addValue(double value) {
 		this.value += value;
 		return this.value;
+	}
+
+
+	@Override
+	public ContextDataValue deepCopy() {
+		return new DoubleContextDataValue(value);
+	}
+
+
+	@Override
+	public double asDouble() {
+		return value;
 	}
 	
 

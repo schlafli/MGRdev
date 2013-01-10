@@ -66,10 +66,10 @@ public class IDGMatchHelper {
 	{
 		if(sourceChain.size()<matchChain.size())
 		{
-			//System.err.println("cannot match IRI chains, match target list larget than source");
+			//System.err.println("cannot match IRI chains, match target list larger than source");
 			return false;
 		}
-		int offset = matchChain.size()-sourceChain.size();
+		int offset =sourceChain.size()-matchChain.size();
 		for(int i=0;i<matchChain.size();i++)
 		{
 			IRI match = matchChain.get(i);

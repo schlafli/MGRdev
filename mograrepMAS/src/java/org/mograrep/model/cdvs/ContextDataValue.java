@@ -13,5 +13,9 @@ public abstract class ContextDataValue {
 		return dataValueID;
 	}
 	
+	public abstract double asDouble();
+	
+	public abstract ContextDataValue deepCopy();
+	
 	public abstract String toString();
 }

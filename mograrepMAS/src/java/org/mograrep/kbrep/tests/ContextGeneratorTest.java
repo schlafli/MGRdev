@@ -3,9 +3,12 @@ package org.mograrep.kbrep.tests;
 
 
 
+import java.util.List;
+
 import org.mograrep.kbrep.AgentRef;
 import org.mograrep.kbrep.MatchMaker;
 import org.mograrep.kbrep.OWLInstantGenerator;
+import org.mograrep.model.ContextDeviation;
 import org.mograrep.model.ContextInformation;
 import org.mograrep.model.IDGGeneric;
 import org.mograrep.model.IDMSet;
@@ -132,13 +135,31 @@ public class ContextGeneratorTest {
 		//ae.setOWLClassExpression(all);
 
 		ContextInformation ci = OWLInstantGenerator.getContextFromClassExpression(all);
+		//ContextInformation agreed = OWLInstantGenerator.getContextFromClassExpression(all);
+		ContextInformation agreed = ci.copy();
+		
+		
 		IDGGeneric.generateContextValues(ci);
 		
 		LocationModifier lm = new LocationModifier(0, 0.5, 0, 0.5);
-		System.out.println(ci.getFormattedView(0," "));
 		System.out.println(IDMSet.applyIDMSetToContext(lm, ci));
 		System.out.println(ci.getFormattedView(0," "));
 		
+		
+		System.out.println(agreed.getFormattedView(0," "));
+		
+		
+		List<ContextDeviation> cds = ContextDeviation.getDeviationsFromContextInformation(agreed, ci);
+		
+		for(ContextDeviation cd: cds)
+		{
+			System.out.println(cd.toString());
+		}
+		System.out.println("\n\n");
+		for(ContextInformation c: ci.flatten())
+		{
+			System.out.println(c.toString());	
+		}
 		
 		
 //		AgentRef a = new AgentRef("AgentBob");
