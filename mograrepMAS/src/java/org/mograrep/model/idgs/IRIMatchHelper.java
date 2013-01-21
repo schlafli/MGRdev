@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Michael
  *
  */
-public class IDGMatchHelper {
+public class IRIMatchHelper {
 	/**
 	 * Checks the final item of the chain
 	 * @param chain The chain of IRIs

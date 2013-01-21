@@ -21,13 +21,13 @@ public class ContextDeviation {
 	private List<ContextInformation> parents;
 
 	private ContextData aData;
-	private ContextData bData;
+	private ContextData pData;
 	
 	
 	public double asDelta()
 	{
 		ContextDataValue aVal = IDGGeneric.generateAverageValues(aData);
-		ContextDataValue bVal = IDGGeneric.generateAverageValues(bData);
+		ContextDataValue bVal = IDGGeneric.generateAverageValues(pData);
 		
 		
 		return ContextDataUtils.subtract(bVal, aVal).asDouble();
@@ -130,7 +130,7 @@ public class ContextDeviation {
 				ContextData db = bValues.ceiling(da);
 				if(db!=null){
 					cd.aData = da;
-					cd.bData = db;
+					cd.pData = db;
 					
 					results.add(cd);	
 				}else{
@@ -188,7 +188,7 @@ public class ContextDeviation {
 			result+=parent.getName()+"("+parent.getType()+")->";
 		}
 
-		result+=getName()+"("+getType()+"): A("+aData.toString()+"), B("+bData.toString()+")";
+		result+=getName()+"("+getType()+"): A("+aData.toString()+"), P("+pData.toString()+")";
 		return result;
 	}
 
@@ -200,11 +200,11 @@ public class ContextDeviation {
 		this.type = type;
 	}
 
-	public ContextData getaData() {
+	public ContextData getAData() {
 		return aData;
 	}
 
-	public ContextData getbData() {
-		return bData;
+	public ContextData getPData() {
+		return pData;
 	}
 }

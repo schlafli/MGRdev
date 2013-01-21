@@ -45,4 +45,29 @@ public class IntegerContextDataValue extends ContextDataValue {
 		return value;
 	}
 
+	@Override
+	public boolean greaterThan(ContextDataValue value) {
+		return this.asDouble()>value.asDouble();
+	}
+
+	@Override
+	public boolean lessThan(ContextDataValue value) {
+		return this.asDouble()>value.asDouble();
+	}
+
+	@Override
+	public boolean isEqual(ContextDataValue value) {
+		return this.getValue() ==  (int)Math.round(value.asDouble());
+	}
+
+	@Override
+	public boolean isComparable(ContextDataValue value) {
+		if(value.getDataValueID()==ContextDataValue.DOUBLE || value.getDataValueID()==ContextDataValue.INTERGER)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }

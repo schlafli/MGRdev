@@ -53,7 +53,7 @@ public class SimpleAverageEstimator implements InteractionEstimator {
 		
 		for(ContextDeviation cdv: contextHistory)
 		{
-			if(cd.sameType(cdv.getaData()))
+			if(cd.sameType(cdv.getAData()))
 			{
 				if(ci.getType().equals(cdv.getType()))
 				{

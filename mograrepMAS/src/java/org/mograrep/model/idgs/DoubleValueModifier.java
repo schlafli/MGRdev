@@ -43,7 +43,7 @@ public abstract class DoubleValueModifier implements InstanceDataValueModifier {
 
 	@Override
 	public boolean isApplicable(ContextData cd) {
-		if(IDGMatchHelper.matchIRIs(cd.getDataProperty(), matchProperty))
+		if(IRIMatchHelper.matchIRIs(cd.getDataProperty(), matchProperty))
 		{
 			return true;
 		}else

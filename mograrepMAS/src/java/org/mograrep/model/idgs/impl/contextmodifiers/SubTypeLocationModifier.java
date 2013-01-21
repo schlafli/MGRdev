@@ -3,7 +3,7 @@ package org.mograrep.model.idgs.impl.contextmodifiers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mograrep.model.idgs.IDGMatchHelper;
+import org.mograrep.model.idgs.IRIMatchHelper;
 import org.semanticweb.owlapi.model.IRI;
 
 public class SubTypeLocationModifier extends LocationModifier {
@@ -21,6 +21,6 @@ public class SubTypeLocationModifier extends LocationModifier {
 	}
 	
 	public boolean isApplicable(List<IRI> chain) {
-			return IDGMatchHelper.matchEndChain(chain, endChain);
+			return IRIMatchHelper.matchEndChain(chain, endChain);
 	}
 }

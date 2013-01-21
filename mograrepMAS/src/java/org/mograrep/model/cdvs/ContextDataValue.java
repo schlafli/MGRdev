@@ -13,6 +13,11 @@ public abstract class ContextDataValue {
 		return dataValueID;
 	}
 	
+	public abstract boolean greaterThan(ContextDataValue value);
+	public abstract boolean lessThan(ContextDataValue value);
+	public abstract boolean isEqual(ContextDataValue value);
+	public abstract boolean isComparable(ContextDataValue value);
+	
 	public abstract double asDouble();
 	
 	public abstract ContextDataValue deepCopy();

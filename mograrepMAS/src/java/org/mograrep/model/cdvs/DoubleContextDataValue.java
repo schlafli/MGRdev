@@ -48,6 +48,36 @@ public class DoubleContextDataValue extends ContextDataValue {
 	public double asDouble() {
 		return value;
 	}
+
+	@Override
+	public boolean greaterThan(ContextDataValue value) {
+		return this.getValue() > value.asDouble();
+	}
+
+	@Override
+	public boolean lessThan(ContextDataValue value) {
+		return this.getValue() < value.asDouble();
+	}
+
+	@Override
+	public boolean isEqual(ContextDataValue value) {
+		double tollerance = 0.001; //the values are considered the same if they are within 0.1%
+		
+		double val_max = this.getValue() * (1.0+tollerance);
+		double val_min = this.getValue() * (1.0-tollerance);
+		
+		return (value.asDouble()>=val_min && value.asDouble()<=val_max);
+	}
+
+	@Override
+	public boolean isComparable(ContextDataValue value) {
+		if(value.getDataValueID()==ContextDataValue.DOUBLE || value.getDataValueID()==ContextDataValue.INTERGER)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 
 }
