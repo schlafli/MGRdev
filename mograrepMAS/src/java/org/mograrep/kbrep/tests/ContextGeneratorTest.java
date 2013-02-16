@@ -12,7 +12,9 @@ import org.mograrep.model.ContextDeviation;
 import org.mograrep.model.ContextInformation;
 import org.mograrep.model.IDGGeneric;
 import org.mograrep.model.IDMSet;
-import org.mograrep.model.idgs.impl.contextmodifiers.LocationModifier;
+import org.mograrep.model.idgs.DoubleValueModifier;
+import org.mograrep.model.idgs.MatchedInstanceDataValueModifier;
+import org.mograrep.model.matchFunctions.ExactMatchFunction;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -140,8 +142,22 @@ public class ContextGeneratorTest {
 		
 		
 		IDGGeneric.generateContextValues(ci);
+		IRI locationIRI = IRI.create("http://www.semanticweb.org/ontologies/2012/8/domain1#Location");;
+		ExactMatchFunction eamf = new ExactMatchFunction(locationIRI, null);
 		
-		LocationModifier lm = new LocationModifier(0, 0.5, 0, 0.5);
+		IDMSet lm = new IDMSet("Location Modifier");
+		lm.setMatchFunction(eamf);
+		
+		
+		MatchedInstanceDataValueModifier msivm ;
+		
+		msivm = new MatchedInstanceDataValueModifier(new DoubleValueModifier(10.0, 0.1), new ExactMatchFunction(IRI.create("http://www.semanticweb.org/ontologies/2012/8/domain1#coordinateX")), "test dvm");
+		lm.addValueModifier(msivm);	
+		//lm.addValueModifier(new DoubleValueModifier(0, 0.5,  IRI.create("http://www.semanticweb.org/ontologies/2012/8/domain1#coordinateX"), "modCoordX"));
+		
+//		LocationModifier lm = new LocationModifier(0, 0.5, 0, 0.5);
+		
+		
 		System.out.println(IDMSet.applyIDMSetToContext(lm, ci));
 		System.out.println(ci.getFormattedView(0," "));
 		

@@ -5,31 +5,37 @@ import java.util.Random;
 import org.mograrep.model.ContextData;
 import org.mograrep.model.InstanceDataValueModifier;
 import org.mograrep.model.RandomHolder;
+import org.mograrep.model.cdvs.ContextDataValue;
 import org.mograrep.model.cdvs.DoubleContextDataValue;
-import org.semanticweb.owlapi.model.IRI;
 
-public abstract class DoubleValueModifier implements InstanceDataValueModifier {
+public class DoubleValueModifier implements InstanceDataValueModifier {
 	
 	double offset;
 	double stdDev;
-	IRI matchProperty;
+	String name;
 	
 
-	public DoubleValueModifier(double offset, double stdDev, IRI matchProperty, String name)
+	public DoubleValueModifier(double offset, double stdDev,String name)
 	{
 		this.offset = offset;
 		this.stdDev = stdDev;
-		this.matchProperty = matchProperty;
+		this.name = name;
 	}
 	
-	public DoubleValueModifier(double offset, double stdDev, IRI matchProperty)
+	public DoubleValueModifier(double offset, double stdDev)
 	{
-		this(offset, stdDev, matchProperty, matchProperty.getFragment());
+		this(offset, stdDev, "_dbvm("+offset+", "+stdDev+")");
 	}
+	
+	
 	
 	@Override
 	public boolean applyModifier(ContextData cd) {
-		if(this.isApplicable(cd))
+		//we need to do the following check, as a generic matcher may be used with this value modifier
+		//
+		//	The alternative would be to make this value modifier apply to all doubles, and the matcher to specify details.
+		// 2nd approach selected
+		if(cd.getDataValueType() == ContextDataValue.DOUBLE)
 		{
 			DoubleContextDataValue dcdv = (DoubleContextDataValue)cd.getValue();
 			Random r = RandomHolder.getInstance();
@@ -41,16 +47,16 @@ public abstract class DoubleValueModifier implements InstanceDataValueModifier {
 		}
 	}
 
-	@Override
-	public boolean isApplicable(ContextData cd) {
-		if(IRIMatchHelper.matchIRIs(cd.getDataProperty(), matchProperty))
-		{
-			return true;
-		}else
-		{
-			return false;
-		}
-	}
+//	@Override
+//	public boolean isApplicable(ContextData cd) {
+//		if(IRIMatchHelper.matchIRIs(cd.getDataProperty(), matchProperty))
+//		{
+//			return true;
+//		}else
+//		{
+//			return false;
+//		}
+//	}
 
 	@Override
 	public String getModifierName() {

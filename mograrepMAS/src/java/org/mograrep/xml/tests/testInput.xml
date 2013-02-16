@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<matchfunctions>
+		
+		<config>
+			<parser>
+				<className>org.mograrep.xml.parsers.ExactMatchFunctionParser</className>
+				<typeName>exactMatchFunction</typeName></parser></config>
+		<functions><matchfunction id="1" parser="exactMatchFunction">
+			<matchproperty><value>http://www.semanticweb.org/ontologies/2012/8/domain1#coordinateX</value></matchproperty>
+			<matchconcept><value>http://www.semanticweb.org/ontologies/2012/8/domain1#Location</value>
+				<level>0</level></matchconcept></matchfunction></functions></matchfunctions></document>

@@ -1,5 +1,6 @@
 package org.mograrep.model.matchFunctions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mograrep.model.ContextDeviation;
@@ -14,7 +15,18 @@ public abstract class MatchFunction {
 		return isApplicable(dev.getParents(), dev.getType(), dev.getAData().getDataProperty());
 	}
 	
-	public abstract boolean isApplicable(List<ContextInformation> parents, IRI cType, IRI property);
-
+	public boolean isApplicable(List<ContextInformation> parents, IRI cType, IRI property)
+	{
+		List<IRI> sourceChain = new ArrayList<>(parents.size()+1);
+		for(ContextInformation ci : parents)
+		{
+			sourceChain.add(ci.getType());
+		}
+		sourceChain.add(cType);
+		//sourceChain.add(property);
+		return this.isApplicable(sourceChain, property);
+	}
+	
+	public abstract boolean isApplicable(List<IRI> sourceChain, IRI property);
 
 }

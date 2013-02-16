@@ -3,16 +3,25 @@ package org.mograrep.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mograrep.model.idgs.MatchedInstanceDataValueModifier;
+import org.mograrep.model.matchFunctions.MatchFunction;
 import org.semanticweb.owlapi.model.IRI;
 
-public abstract class IDMSet implements InstanceDataModifier{
+public class IDMSet implements InstanceDataModifier{
 
 	//List<InstanceDataModifier> genericModifiers;
-	List<InstanceDataValueModifier> valueModifiers; //current level modifiers
+	List<MatchedInstanceDataValueModifier> valueModifiers; //current level modifiers
 	List<InstanceDataModifier> ciModifiers; //current level modifiers
 
 	String name;
-
+	
+	protected MatchFunction mf;
+	
+	public MatchFunction getMatchFunction()
+	{
+		return mf;
+	}
+	
 	public IDMSet(String name)
 	{
 		this.name = name;
@@ -20,11 +29,18 @@ public abstract class IDMSet implements InstanceDataModifier{
 		ciModifiers = new ArrayList<>();
 	}
 
-	//generic parent
+	public void setMatchFunction(MatchFunction matchFunc)
+	{
+		this.mf = matchFunc;
+	}
+	
 
-	public abstract boolean isApplicable(List<IRI> chain);
+	public boolean isApplicable(List<IRI> chain)
+	{
+		return mf.isApplicable(chain, null);
+	}
 
-	public void addValueModifier(InstanceDataValueModifier idgm)
+	public void addValueModifier(MatchedInstanceDataValueModifier idgm)
 	{
 		valueModifiers.add(idgm);
 	}
@@ -51,7 +67,7 @@ public abstract class IDMSet implements InstanceDataModifier{
 		}
 		if(ci.hasValues())
 		{
-			for(InstanceDataValueModifier i: valueModifiers)
+			for(MatchedInstanceDataValueModifier i: valueModifiers)
 			{
 				for(ContextData cd:ci.getValues())
 				{

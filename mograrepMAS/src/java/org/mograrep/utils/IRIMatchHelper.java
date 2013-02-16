@@ -1,4 +1,4 @@
-package org.mograrep.model.idgs;
+package org.mograrep.utils;
 
 import java.util.List;
 
@@ -27,6 +27,17 @@ public class IRIMatchHelper {
 		
 	}
 	
+	public static boolean matchAnyIRIInList(List<IRI> matchList, IRI toMatch)
+	{
+		for(IRI potentialMatch: matchList)
+		{
+			if(matchIRIs(potentialMatch, toMatch))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public static boolean matchIRIs(IRI first, IRI second)
 	{
