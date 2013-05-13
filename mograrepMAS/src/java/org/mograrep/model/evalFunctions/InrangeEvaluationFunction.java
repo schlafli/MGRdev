@@ -57,4 +57,10 @@ public class InrangeEvaluationFunction implements EvaluationFunction {
 		return (good)?1.0:0.0;
 	}
 
+	
+	public String toString()
+	{
+		return "evalFunction:inrange";
+	}
+	
 }

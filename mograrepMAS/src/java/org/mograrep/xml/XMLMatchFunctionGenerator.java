@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.mograrep.model.matchFunctions.MatchFunction;
-import org.mograrep.xml.parsers.MatchFunctionParser;
+import org.mograrep.xml.parsers.GenericParser;
 import org.w3c.dom.Element;
 
 public class XMLMatchFunctionGenerator {
 	
-	HashMap<String, MatchFunctionParser> parserMap;
+	HashMap<String, GenericParser<MatchFunction>> parserMap;
 	Element matchFunctionSectionRoot = null;
 	Element matchFunctionRoot = null;
 	Element matchFunctionConfig = null;
@@ -57,7 +57,7 @@ public class XMLMatchFunctionGenerator {
 			String parser = mfe.getAttribute("parser");
 			if(!parser.equals("") && parserMap.containsKey(parser))
 			{
-				return parserMap.get(parser).generateFunctionFromElement(mfe);
+				return parserMap.get(parser).generateFromElement(mfe);
 			}
 		}
 		return null;
@@ -77,7 +77,7 @@ public class XMLMatchFunctionGenerator {
 				//System.out.println(className);
 				
 				try {
-					MatchFunctionParser mfp = (MatchFunctionParser) Class.forName(className).newInstance();
+					GenericParser mfp = (GenericParser) Class.forName(className).newInstance();
 					parserMap.put(typeName, mfp);
 					System.out.println("Successfully loaded:"+className);
 				} catch (InstantiationException | IllegalAccessException

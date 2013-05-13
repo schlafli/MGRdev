@@ -9,13 +9,13 @@ import org.mograrep.xml.XMLHelper;
 import org.semanticweb.owlapi.model.IRI;
 import org.w3c.dom.Element;
 
-public class ExactMatchFunctionParser implements MatchFunctionParser {
+public class ExactMatchFunctionParser implements GenericParser<MatchFunction>{
 
 	
 	
 
 	@Override
-	public MatchFunction generateFunctionFromElement(Element e) {
+	public MatchFunction generateFromElement(Element e) {
 		
 		List<Element> matchProps = XMLHelper.getChildElementsByTagName(e, "matchproperty");
 		

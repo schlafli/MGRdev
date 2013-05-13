@@ -60,8 +60,7 @@ public class DoubleValueModifier implements InstanceDataValueModifier {
 
 	@Override
 	public String getModifierName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 }

@@ -19,6 +19,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
+import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParser;
+
 import static org.mograrep.kbrep.OWLTools.addIRIMapping;
 
 public class MatchmakerTest {
@@ -120,6 +123,7 @@ public class MatchmakerTest {
 		OWLClassExpression all = fac.getOWLObjectIntersectionOf(action, charBySome, charBySome2);
 		
 		
+		
 		//Set<OWLClassExpression> aset = all.getNestedClassExpressions();
 		
 //		for(OWLClassExpression e: aset){
@@ -137,6 +141,12 @@ public class MatchmakerTest {
 		
 		//don't return yourself
 //		match.listActions(ae);
+		DLSyntaxObjectRenderer dlsor = new DLSyntaxObjectRenderer();
+		
+		
+		
+		System.out.println("Bla:");
+		
 		
 		
 		return false;

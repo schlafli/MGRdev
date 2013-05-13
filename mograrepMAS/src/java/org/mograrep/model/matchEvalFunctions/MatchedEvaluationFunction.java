@@ -24,5 +24,10 @@ public class MatchedEvaluationFunction {
 	{
 		return ef.getEvaluation(dev);
 	}
-	
+
+	public String toString()
+	{
+		return "MEF: match("+mf.toString()+"), eval:("+ef.toString()+")";
+		
+	}
 }

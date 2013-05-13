@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<matchfunctions>
-		
+
 		<config>
 			<parser>
 				<className>org.mograrep.xml.parsers.ExactMatchFunctionParser</className>
-				<typeName>exactMatchFunction</typeName></parser></config>
-		<functions><matchfunction id="1" parser="exactMatchFunction">
-			<matchproperty><value>http://www.semanticweb.org/ontologies/2012/8/domain1#coordinateX</value></matchproperty>
-			<matchconcept><value>http://www.semanticweb.org/ontologies/2012/8/domain1#Location</value>
-				<level>0</level></matchconcept></matchfunction></functions></matchfunctions></document>
+				<typeName>exactMatchFunction</typeName>
+			</parser>
+		</config>
+		<data>
+			<function id="1" parser="exactMatchFunction">
+				<matchproperty>
+					<value>http://www.semanticweb.org/ontologies/2012/8/domain1#coordinateX</value>
+				</matchproperty>
+				<matchconcept>
+					<value>http://www.semanticweb.org/ontologies/2012/8/domain1#Location</value>
+					<level>0</level>
+				</matchconcept>
+			</function>
+		</data>
+	</matchfunctions>
+	<valuemodifiers>
+		<config>
+			<parser>
+				<className>org.mograrep.xml.parsers.DoubleValueModifierParser</className>
+				<typeName>doubleValue</typeName></parser></config>
+		<data>
+			<function id="101" parser="doubleValue">
+				<name>XMLTestModifier</name>
+				<stddev>1.0</stddev>
+				<offset>1.0</offset></function></data></valuemodifiers>
+	<evaluationfunctions>
+		<config>
+			<parser>
+				<className>org.mograrep.xml.parsers.EvaluationFunctionParser</className>
+				<typeName>simpleEval</typeName></parser></config>
+		<data>
+			<function id="201" parser="simpleEval">
+				<evaltype>inrange</evaltype></function></data></evaluationfunctions>
+	<matchedfunctions>
+		<config>
+			<parser>
+				<className>org.mograrep.xml.parsers.MatchedEvaluationFunctionParser</className>
+				<typeName>matchedEval</typeName>
+				<requiredSection>
+					<section>matchfunctions</section>
+					<asName>matchFunction</asName></requiredSection>
+				<requiredSection>
+					<asName>evaluationFunction</asName>
+					<section>evaluationfunctions</section>
+				</requiredSection></parser></config>
+		<data>
+			<function id="1001" parser="matchedEval">
+				<matchFunction>
+					<id>1</id></matchFunction>
+				<evaluationFunction>
+					<id>201</id></evaluationFunction></function></data></matchedfunctions></document>

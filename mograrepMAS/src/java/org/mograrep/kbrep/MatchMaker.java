@@ -154,7 +154,7 @@ public class MatchMaker {
 		return setAgentClassExpression(agentClassFromIRI);
 	}
 
-	//TODO: 
+	//TODO: Does the AgentRef really need to be an instance in the ontology of an Agent Class?
 	public boolean registerAgent(AgentRef a){
 		if(agents.contains(a)){
 			return false;

@@ -3,10 +3,14 @@ MAS mograrepMAS {
 	infrastructure: Centralised
 
 	agents:
-		agent1 sample_agent;
+		//receiver #500;
+		//sender #500;
+		matchmaker;
+		both_behaviours #100;
+		director;
 
 	aslSourcePath:
-		"src/asl/agents";
+		"src/asl";
 		
 
 }

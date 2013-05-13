@@ -45,4 +45,10 @@ public class AboveEvaluationFunction implements EvaluationFunction {
 
 		return (good)?1.0:0.0;
 	}	
+	
+	
+	public String toString()
+	{
+		return "evalFunction:above";
+	}
 }
